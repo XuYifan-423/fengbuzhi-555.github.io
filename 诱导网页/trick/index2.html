@@ -1,0 +1,833 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>限时福利 - 免费领取高端护肤品</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#FF4D4F',
+                        success: '#52C41A',
+                        warning: '#FAAD14',
+                        dark: '#1F2937',
+                        light: '#F9FAFB'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+
+            .animate-pulse-slow {
+                animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            }
+
+            .animate-float {
+                animation: float 3s ease-in-out infinite;
+            }
+
+            .shadow-glow {
+                box-shadow: 0 0 15px rgba(22, 93, 255, 0.5);
+            }
+
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* 页面容器样式 */
+        .page {
+            display: none;
+        }
+
+            .page.active {
+                display: block;
+            }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- 导航栏 -->
+    <nav class="bg-white shadow-md fixed w-full z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="https://picsum.photos/50/50" alt="品牌Logo" class="h-10 w-10 rounded-full">
+                <span class="ml-3 text-xl font-bold text-primary">美肌梦工坊</span>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="#" class="text-gray-700 hover:text-primary transition-colors page-link" data-page="home">首页</a>
+                <a href="#" class="text-gray-700 hover:text-primary transition-colors page-link" data-page="products">产品</a>
+                <a href="#" class="text-gray-700 hover:text-primary transition-colors page-link" data-page="offers">优惠</a>
+                <a href="#" class="text-gray-700 hover:text-primary transition-colors page-link" data-page="about">关于我们</a>
+                <a href="#" class="text-gray-700 hover:text-primary transition-colors page-link" data-page="anti-fraud">反诈知识</a>
+            </div>
+            <div class="md:hidden">
+                <button class="text-gray-700 focus:outline-none" id="menu-toggle">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- 移动端菜单 -->
+        <div class="md:hidden hidden bg-white shadow-lg absolute w-full" id="mobile-menu">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+                <a href="#" class="text-gray-700 hover:text-primary py-2 border-b border-gray-100 page-link" data-page="home">首页</a>
+                <a href="#" class="text-gray-700 hover:text-primary py-2 border-b border-gray-100 page-link" data-page="products">产品</a>
+                <a href="#" class="text-gray-700 hover:text-primary py-2 border-b border-gray-100 page-link" data-page="offers">优惠</a>
+                <a href="#" class="text-gray-700 hover:text-primary py-2 page-link" data-page="about">关于我们</a>
+                <a href="#" class="text-gray-700 hover:text-primary py-2 page-link" data-page="anti-fraud">反诈知识</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 页面容器 -->
+    <div class="page-container pt-20">
+        <!-- 主页面（首页） -->
+        <div id="home" class="page active">
+            <!-- 主横幅 -->
+            <header class="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-br from-primary/90 to-primary">
+                <div class="container mx-auto px-4">
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0">
+                            <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold text-white leading-tight text-shadow">
+                                限时免费领取<br>高端护肤套装
+                            </h1>
+                            <p class="text-[clamp(1rem,2vw,1.25rem)] text-white/90 mt-4 mb-8 max-w-lg mx-auto md:mx-0">
+                                仅需支付<span class="text-yellow-300 font-bold">19.9元运费</span>，即可获得价值<span class="text-yellow-300 font-bold">298元</span>的奢华护肤套装！
+                                限量200份，先到先得！
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                                <button class="bg-white text-primary hover:bg-gray-100 px-8 py-4 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" id="claim-btn">
+                                    立即领取 <i class="fa fa-arrow-right ml-2"></i>
+                                </button>
+                                <button class="bg-transparent border-2 border-white text-white hover:bg-white/10 px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300">
+                                    了解详情
+                                </button>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 relative">
+                            <img src="https://picsum.photos/600/400" alt="高端护肤套装" class="rounded-lg shadow-2xl animate-float">
+                            <div class="absolute -top-4 -right-4 bg-secondary text-white rounded-full w-20 h-20 flex items-center justify-center font-bold animate-pulse-slow">
+                                限时
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 倒计时 -->
+            <section class="bg-white py-8 border-b border-gray-200">
+                <div class="container mx-auto px-4">
+                    <div class="text-center">
+                        <p class="text-gray-600 mb-2">活动剩余时间</p>
+                        <div class="flex justify-center space-x-4">
+                            <div class="bg-primary text-white w-16 h-16 rounded-lg flex flex-col items-center justify-center">
+                                <span class="text-2xl font-bold" id="days">03</span>
+                                <span class="text-xs">天</span>
+                            </div>
+                            <div class="bg-primary text-white w-16 h-16 rounded-lg flex flex-col items-center justify-center">
+                                <span class="text-2xl font-bold" id="hours">12</span>
+                                <span class="text-xs">时</span>
+                            </div>
+                            <div class="bg-primary text-white w-16 h-16 rounded-lg flex flex-col items-center justify-center">
+                                <span class="text-2xl font-bold" id="minutes">45</span>
+                                <span class="text-xs">分</span>
+                            </div>
+                            <div class="bg-primary text-white w-16 h-16 rounded-lg flex flex-col items-center justify-center">
+                                <span class="text-2xl font-bold" id="seconds">33</span>
+                                <span class="text-xs">秒</span>
+                            </div>
+                        </div>
+                        <p class="text-warning font-bold mt-4">活动结束后恢复原价，机会难得！</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 产品介绍 -->
+            <section class="py-16 bg-gray-50">
+                <div class="container mx-auto px-4">
+                    <div class="text-center mb-12">
+                        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-4">奢华护肤套装详情</h2>
+                        <p class="text-gray-600 max-w-2xl mx-auto">精选全球顶级原料，经过严格测试，带给您前所未有的护肤体验</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- 产品1 -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="relative">
+                                <img src="https://picsum.photos/400/300?random=1" alt="保湿精华液" class="w-full h-60 object-cover">
+                                <div class="absolute top-4 right-4 bg-secondary text-white px-3 py-1 rounded-full text-sm font-bold">
+                                    畅销
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold text-gray-800 mb-2">深海保湿精华液</h3>
+                                <p class="text-gray-600 mb-4">富含深海矿物质和透明质酸，深层补水，让肌肤水润饱满</p>
+                                <div class="flex items-center text-yellow-400 mb-4">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-half-o"></i>
+                                    <span class="text-gray-500 ml-2">4.8 (2,563评价)</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <span class="text-gray-400 line-through">¥128</span>
+                                        <span class="text-primary font-bold text-xl ml-2">免费</span>
+                                    </div>
+                                    <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors">
+                                        加入礼盒
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 产品2 -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="relative">
+                                <img src="https://picsum.photos/400/300?random=2" alt="修护面霜" class="w-full h-60 object-cover">
+                                <div class="absolute top-4 right-4 bg-warning text-white px-3 py-1 rounded-full text-sm font-bold">
+                                    限量
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold text-gray-800 mb-2">植物修护面霜</h3>
+                                <p class="text-gray-600 mb-4">采用天然植物精华，修复受损肌肤，增强肌肤屏障</p>
+                                <div class="flex items-center text-yellow-400 mb-4">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <span class="text-gray-500 ml-2">4.2 (1,897评价)</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <span class="text-gray-400 line-through">¥98</span>
+                                        <span class="text-primary font-bold text-xl ml-2">免费</span>
+                                    </div>
+                                    <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors">
+                                        加入礼盒
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 产品3 -->
+                        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                            <div class="relative">
+                                <img src="https://picsum.photos/400/300?random=3" alt="洁面乳" class="w-full h-60 object-cover">
+                                <div class="absolute top-4 right-4 bg-success text-white px-3 py-1 rounded-full text-sm font-bold">
+                                    新品
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold text-gray-800 mb-2">温和氨基酸洁面乳</h3>
+                                <p class="text-gray-600 mb-4">弱酸性配方，温和清洁不刺激，适合所有肤质</p>
+                                <div class="flex items-center text-yellow-400 mb-4">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <span class="text-gray-500 ml-2">4.9 (3,125评价)</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <span class="text-gray-400 line-through">¥72</span>
+                                        <span class="text-primary font-bold text-xl ml-2">免费</span>
+                                    </div>
+                                    <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors">
+                                        加入礼盒
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 text-center">
+                        <button class="bg-primary text-white px-8 py-4 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" id="claim-all-btn">
+                            一键领取全部产品 <i class="fa fa-gift ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 用户见证 -->
+            <section class="py-16 bg-white">
+                <div class="container mx-auto px-4">
+                    <div class="text-center mb-12">
+                        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-4">用户真实见证</h2>
+                        <p class="text-gray-600 max-w-2xl mx-auto">来自全国各地用户的真实反馈，见证肌肤的惊人变化</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- 见证1 -->
+                        <div class="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
+                            <div class="flex items-center mb-4">
+                                <img src="https://picsum.photos/60/60?random=4" alt="用户头像" class="w-12 h-12 rounded-full">
+                                <div class="ml-4">
+                                    <h4 class="font-bold text-gray-800">李小姐</h4>
+                                    <div class="flex items-center text-yellow-400">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600">"使用这套护肤品三天了，皮肤明显变得水润有光泽，尤其是保湿精华液，效果真的超出预期！"</p>
+                        </div>
+
+                        <!-- 见证2 -->
+                        <div class="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
+                            <div class="flex items-center mb-4">
+                                <img src="https://picsum.photos/60/60?random=5" alt="用户头像" class="w-12 h-12 rounded-full">
+                                <div class="ml-4">
+                                    <h4 class="font-bold text-gray-800">张女士</h4>
+                                    <div class="flex items-center text-yellow-400">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-half-o"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600">"本来抱着试试看的心态，没想到真的这么好用！面霜对我的敏感肌特别友好，已经推荐给身边的朋友了。"</p>
+                        </div>
+
+                        <!-- 见证3 -->
+                        <div class="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
+                            <div class="flex items-center mb-4">
+                                <img src="https://picsum.photos/60/60?random=6" alt="用户头像" class="w-12 h-12 rounded-full">
+                                <div class="ml-4">
+                                    <h4 class="font-bold text-gray-800">王先生</h4>
+                                    <div class="flex items-center text-yellow-400">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600">"给女朋友买的，她说用了之后皮肤状态好了很多，洁面乳很温和，不紧绷。这么便宜能买到这么好的产品，真的很划算！"</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 常见问题 -->
+            <section class="py-16 bg-gray-50">
+                <div class="container mx-auto px-4">
+                    <div class="text-center mb-12">
+                        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark mb-4">常见问题</h2>
+                        <p class="text-gray-600 max-w-2xl mx-auto">解答您可能关心的问题</p>
+                    </div>
+
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <!-- 问题1 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <button class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none faq-toggle" data-target="faq-1">
+                                <span class="font-bold text-gray-800">真的只需要支付运费吗？</span>
+                                <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+                            </button>
+                            <div class="px-6 py-4 bg-gray-50 hidden" id="faq-1">
+                                <p class="text-gray-600">是的，本次活动完全免费，您只需支付19.9元的运费即可获得价值298元的护肤套装。我们承诺不会收取任何额外费用。</p>
+                            </div>
+                        </div>
+
+                        <!-- 问题2 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <button class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none faq-toggle" data-target="faq-2">
+                                <span class="font-bold text-gray-800">如何保证产品质量？</span>
+                                <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+                            </button>
+                            <div class="px-6 py-4 bg-gray-50 hidden" id="faq-2">
+                                <p class="text-gray-600">我们的所有产品都经过严格的质量检测，符合国家相关标准。您可以查看产品包装上的质检报告和生产许可证。此外，我们提供7天无理由退换服务，让您购物无忧。</p>
+                            </div>
+                        </div>
+
+                        <!-- 问题3 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <button class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none faq-toggle" data-target="faq-3">
+                                <span class="font-bold text-gray-800">活动有什么限制条件吗？</span>
+                                <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+                            </button>
+                            <div class="px-6 py-4 bg-gray-50 hidden" id="faq-3">
+                                <p class="text-gray-600">本次活动限新用户参与，每位用户只能领取一次。同时，由于库存有限，我们每天只发放200份礼盒，先到先得，抢完即止。</p>
+                            </div>
+                        </div>
+
+                        <!-- 问题4 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <button class="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none faq-toggle" data-target="faq-4">
+                                <span class="font-bold text-gray-800">多久能收到货？</span>
+                                <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+                            </button>
+                            <div class="px-6 py-4 bg-gray-50 hidden" id="faq-4">
+                                <p class="text-gray-600">我们会在您下单后的24小时内发货，一般3-5个工作日内可以送达。您可以在下单后通过订单页面查询物流信息。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 领取表单 -->
+            <section class="py-16 bg-primary/5">
+                <div class="container mx-auto px-4">
+                    <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+                        <div class="bg-primary text-white p-8 text-center">
+                            <h2 class="text-2xl font-bold mb-2">立即领取您的护肤礼盒</h2>
+                            <p class="text-white/80">填写以下信息，仅需支付19.9元运费即可获得价值298元的奢华护肤套装</p>
+                        </div>
+                        <div class="p-8">
+                            <form id="claim-form">
+                                <div class="space-y-4">
+                                    <div>
+                                        <label for="name" class="block text-gray-700 font-medium mb-2">姓名</label>
+                                        <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors" placeholder="请输入您的姓名" required>
+                                    </div>
+                                    <div>
+                                        <label for="phone" class="block text-gray-700 font-medium mb-2">手机号码</label>
+                                        <input type="tel" id="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors" placeholder="请输入您的手机号码" required>
+                                    </div>
+                                    <div>
+                                        <label for="address" class="block text-gray-700 font-medium mb-2">收货地址</label>
+                                        <textarea id="address" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors" placeholder="请输入详细收货地址" required></textarea>
+                                    </div>
+                                    <div>
+                                        <label for="payment" class="block text-gray-700 font-medium mb-2">支付方式</label>
+                                        <div class="flex space-x-4">
+                                            <label class="flex items-center">
+                                                <input type="radio" name="payment" value="alipay" class="form-radio text-primary" checked>
+                                                <span class="ml-2">支付宝</span>
+                                            </label>
+                                            <label class="flex items-center">
+                                                <input type="radio" name="payment" value="wechat" class="form-radio text-primary">
+                                                <span class="ml-2">微信支付</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="pt-4">
+                                        <button type="submit" class="w-full bg-primary text-white py-4 rounded-lg font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" id="submit-btn">
+                                            确认领取并支付运费
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 反诈知识页面 -->
+        <div id="anti-fraud" class="page">
+            <header class="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-br from-primary/90 to-primary">
+                <div class="container mx-auto px-4 text-center">
+                    <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold text-white leading-tight text-shadow">
+                        反诈知识科普
+                    </h1>
+                    <p class="text-[clamp(1rem,2vw,1.25rem)] text-white/90 mt-4 max-w-2xl mx-auto">
+                        了解常见的网络诈骗手段，提高自我防范意识，保护个人财产安全
+                    </p>
+                </div>
+            </header>
+
+            <section class="py-16 bg-white">
+                <div class="container mx-auto px-4 max-w-4xl">
+                    <div class="bg-gray-50 p-8 rounded-xl shadow-md mb-12">
+                        <h2 class="text-2xl font-bold text-dark mb-6">常见诈骗类型解析</h2>
+
+                        <div class="space-y-8">
+                            <div class="flex">
+                                <div class="flex-shrink-0 w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-exclamation-triangle text-red-500 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">1. "免费领取"诈骗</h3>
+                                    <p class="text-gray-600">
+                                        骗子以"免费赠送高价值商品"为诱饵，声称只需支付小额运费即可获得，实际商品价值远低于运费，甚至根本不会发货。这类诈骗利用了人们贪图小便宜的心理，通过设置"运费"等名义收取费用。
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex">
+                                <div class="flex-shrink-0 w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-trophy text-red-500 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">2. 虚假中奖诈骗</h3>
+                                    <p class="text-gray-600">
+                                        骗子通过短信、邮件或网页弹窗等方式告知受害者"中奖"，需要先缴纳"手续费""个人所得税"等费用才能领取奖品。一旦受害者转账，骗子便会消失。
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex">
+                                <div class="flex-shrink-0 w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fa fa-shopping-cart text-red-500 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">3. 网络购物诈骗</h3>
+                                    <p class="text-gray-600">
+                                        骗子在社交平台或虚假购物网站上发布低价商品信息，吸引消费者下单，然后以"商品缺货""订单异常"等理由要求退款重拍，诱导受害者在虚假链接上输入银行卡信息，实施诈骗。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-8 rounded-xl shadow-md">
+                        <h2 class="text-2xl font-bold text-dark mb-6">防骗实用技巧</h2>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-white p-6 rounded-lg shadow-sm">
+                                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                                    <i class="fa fa-eye text-primary text-xl"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-3">保持警惕</h3>
+                                <p class="text-gray-600">
+                                    不轻易相信"免费""超低价格""中奖"等诱惑性信息，记住"天上不会掉馅饼"。
+                                </p>
+                            </div>
+
+                            <div class="bg-white p-6 rounded-lg shadow-sm">
+                                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                                    <i class="fa fa-search text-primary text-xl"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-3">核实信息</h3>
+                                <p class="text-gray-600">
+                                    通过官方渠道核实活动真实性，不点击不明链接，不扫描可疑二维码。
+                                </p>
+                            </div>
+
+                            <div class="bg-white p-6 rounded-lg shadow-sm">
+                                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                                    <i class="fa fa-lock text-primary text-xl"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-3">保护信息</h3>
+                                <p class="text-gray-600">
+                                    不轻易透露银行卡号、密码、验证码等敏感信息，不向陌生账户转账。
+                                </p>
+                            </div>
+
+                            <div class="bg-white p-6 rounded-lg shadow-sm">
+                                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                                    <i class="fa fa-phone text-primary text-xl"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-3">及时求助</h3>
+                                <p class="text-gray-600">
+                                    遇到可疑情况，及时拨打110或全国反诈劝阻专线96110咨询举报。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 其他页面（产品、优惠、关于我们）- 保持结构一致但内容简化 -->
+        <div id="products" class="page">
+            <header class="pt-24 pb-16 bg-gradient-to-br from-primary/90 to-primary">
+                <div class="container mx-auto px-4 text-center">
+                    <h1 class="text-3xl font-bold text-white">产品中心</h1>
+                </div>
+            </header>
+            <section class="py-16 bg-white">
+                <div class="container mx-auto px-4 text-center">
+                    <p>产品展示页面内容</p>
+                </div>
+            </section>
+        </div>
+
+        <div id="offers" class="page">
+            <header class="pt-24 pb-16 bg-gradient-to-br from-primary/90 to-primary">
+                <div class="container mx-auto px-4 text-center">
+                    <h1 class="text-3xl font-bold text-white">优惠活动</h1>
+                </div>
+            </header>
+            <section class="py-16 bg-white">
+                <div class="container mx-auto px-4 text-center">
+                    <p>优惠活动页面内容</p>
+                </div>
+            </section>
+        </div>
+
+        <div id="about" class="page">
+            <header class="pt-24 pb-16 bg-gradient-to-br from-primary/90 to-primary">
+                <div class="container mx-auto px-4 text-center">
+                    <h1 class="text-3xl font-bold text-white">关于我们</h1>
+                </div>
+            </header>
+            <section class="py-16 bg-white">
+                <div class="container mx-auto px-4 text-center">
+                    <p>本页面仅用于反诈教育演示，所有内容均为模拟场景</p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- 揭露模态框 -->
+    <div id="expose-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl max-w-3xl w-full mx-4 overflow-hidden transform transition-all duration-300 scale-95 opacity-0" id="modal-content">
+            <div class="bg-secondary text-white p-6">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-xl font-bold">警惕消费陷阱！</h3>
+                    <button id="close-modal" class="text-white focus:outline-none">
+                        <i class="fa fa-times text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6">
+                <div class="flex flex-col md:flex-row items-start gap-6">
+                    <div class="md:w-1/3">
+                        <img src="https://picsum.photos/300/300?random=7" alt="消费陷阱警示" class="rounded-lg shadow-md">
+                    </div>
+                    <div class="md:w-2/3">
+                        <h4 class="text-xl font-bold text-gray-800 mb-3">这是一个模拟的消费陷阱！</h4>
+                        <p class="text-gray-600 mb-4">您刚刚体验的是一种常见的消费陷阱，利用了以下行为经济学原理：</p>
+
+                        <div class="space-y-3 mb-6">
+                            <div class="flex items-start">
+                                <div class="bg-warning/20 p-2 rounded-full text-warning mr-3">
+                                    <i class="fa fa-lightbulb-o"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-gray-800">锚定效应</h5>
+                                    <p class="text-gray-600">通过展示原价298元，让您觉得支付19.9元运费非常划算，从而忽略了商品本身的真实价值。</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div class="bg-warning/20 p-2 rounded-full text-warning mr-3">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-gray-800">稀缺性诱导</h5>
+                                    <p class="text-gray-600">倒计时和"限量200份"的提示，制造紧迫感，迫使您在未充分思考的情况下匆忙做出决定。</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div class="bg-warning/20 p-2 rounded-full text-warning mr-3">
+                                    <i class="fa fa-users"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-gray-800">社会认同</h5>
+                                    <p class="text-gray-600">虚假用户见证和好评，利用从众心理，让您认为其他人都在购买，从而降低警惕性。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <h5 class="font-bold text-gray-800 mb-2">如何避免类似陷阱？</h5>
+                            <ul class="list-disc pl-5 text-gray-600 space-y-1">
+                                <li>不轻易相信"免费"或"超低价格"的承诺，尤其是需要提前支付费用的情况</li>
+                                <li>仔细查看商品详情和用户评价，注意区分真实评价和虚假好评</li>
+                                <li>遇到限时促销时，先冷静思考是否真的需要该商品，避免冲动消费</li>
+                                <li>核实商家资质，通过正规渠道购买商品</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 p-4 flex justify-end">
+                <button id="learn-more-btn" class="bg-primary text-white px-6 py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors">
+                    了解更多反诈知识
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 页面切换功能
+            const pageLinks = document.querySelectorAll('.page-link');
+            const pages = document.querySelectorAll('.page');
+
+            function showPage(pageId) {
+                // 隐藏所有页面
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                });
+                // 显示目标页面
+                document.getElementById(pageId).classList.add('active');
+                // 关闭移动端菜单（如果打开）
+                mobileMenu.classList.add('hidden');
+                // 滚动到顶部
+                window.scrollTo(0, 0);
+            }
+
+            pageLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    showPage(pageId);
+                });
+            });
+
+            // 导航栏滚动效果
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('py-2', 'shadow-lg');
+                    navbar.classList.remove('py-3', 'shadow-md');
+                } else {
+                    navbar.classList.add('py-3', 'shadow-md');
+                    navbar.classList.remove('py-2', 'shadow-lg');
+                }
+            });
+
+            // 移动端菜单切换
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            menuToggle.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // 点击"立即领取"按钮显示反诈弹窗
+            const claimBtn = document.getElementById('claim-btn');
+            const claimAllBtn = document.getElementById('claim-all-btn');
+            const submitBtn = document.getElementById('submit-btn');
+            const exposeModal = document.getElementById('expose-modal');
+            const modalContent = document.getElementById('modal-content');
+            const closeModal = document.getElementById('close-modal');
+            const learnMoreBtn = document.getElementById('learn-more-btn');
+
+            function showModal() {
+                exposeModal.classList.remove('hidden');
+                setTimeout(() => {
+                    modalContent.classList.remove('scale-95', 'opacity-0');
+                    modalContent.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            }
+
+            function hideModal() {
+                modalContent.classList.remove('scale-100', 'opacity-100');
+                modalContent.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    exposeModal.classList.add('hidden');
+                }, 300);
+            }
+
+            // 领取按钮点击事件
+            claimBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                showModal();
+            });
+
+            claimAllBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                showModal();
+            });
+
+            submitBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                // 表单验证
+                const name = document.getElementById('name').value;
+                const phone = document.getElementById('phone').value;
+                const address = document.getElementById('address').value;
+
+                if (!name || !phone || !address) {
+                    alert('请填写完整信息');
+                    return;
+                }
+
+                showModal();
+            });
+
+            // 关闭弹窗
+            closeModal.addEventListener('click', hideModal);
+
+            // 点击模态框外部关闭
+            exposeModal.addEventListener('click', function (e) {
+                if (e.target === exposeModal) {
+                    hideModal();
+                }
+            });
+
+            // 学习更多按钮 - 跳转到反诈知识页面
+            learnMoreBtn.addEventListener('click', function () {
+                hideModal();
+                showPage('anti-fraud');
+            });
+
+            // 常见问题折叠展开
+            const faqToggles = document.querySelectorAll('.faq-toggle');
+            faqToggles.forEach(toggle => {
+                toggle.addEventListener('click', function () {
+                    const targetId = this.getAttribute('data-target');
+                    const target = document.getElementById(targetId);
+                    const icon = this.querySelector('i');
+
+                    target.classList.toggle('hidden');
+                    icon.classList.toggle('fa-chevron-down');
+                    icon.classList.toggle('fa-chevron-up');
+                });
+            });
+
+            // 倒计时功能
+            function updateCountdown() {
+                const now = new Date();
+                // 设置截止日期为当前日期加3天
+                const deadline = new Date();
+                deadline.setDate(now.getDate() + 3);
+                deadline.setHours(23, 59, 59, 0);
+
+                const diff = deadline - now;
+
+                if (diff <= 0) {
+                    document.getElementById('days').textContent = '00';
+                    document.getElementById('hours').textContent = '00';
+                    document.getElementById('minutes').textContent = '00';
+                    document.getElementById('seconds').textContent = '00';
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = String(days).padStart(2, '0');
+                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+            }
+
+            // 初始化倒计时并每秒更新
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        });
+    </script>
+</body>
+</html>
